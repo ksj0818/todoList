@@ -4,6 +4,12 @@ const todoListItem = document.getElementById('todo-list__item');
 
 let todoList = [];
 
+if (localStorage.todo != undefined) {
+  todoList = JSON.parse(localStorage.todo);
+  console.log(todoList)
+  fetchList();
+}
+
 todoSave.addEventListener('click', function() {
   let todoItems = {
     text: todoInput.value,
@@ -13,12 +19,12 @@ todoSave.addEventListener('click', function() {
   todoItems.text === '' || todoItems.text === null ?
   alert('할 일을 입력해 주세요.') :
   todoList.push(todoItems);
-  
+
   todoInput.value = '';
+
+  setLocalStorage();
   fetchList();
 });
-
-
 
 // functions 
 function fetchList() {
@@ -56,10 +62,21 @@ function checkTodo(index) {
     todoText[index].className = "col-10 todo-text";
     checkTodo[index].className = 'fas fa-check check-todo';
   }
+  setLocalStorage()
 }
 
 function deleteTodo(index) {
-  todoList.splice(index, 1);
+  confirm('정말 삭제할까요?') === true ? 
+  todoList.splice(index, 1)
+  : null;
+
+  setLocalStorage()
   fetchList();
 } 
 
+function setLocalStorage() {
+  if (localStorage.todo != undefined) {
+    localStorage.removeItem('todo');
+  }
+  localStorage.setItem('todo', JSON.stringify(todoList));
+}
