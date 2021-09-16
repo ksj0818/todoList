@@ -52,6 +52,7 @@ function fetchList() {
     deleteTodoBtn.addEventListener('click', function() {
       const index = Number(this.dataset.index);
       todoList.splice(index, 1);
+      setLocalStorage()
       fetchList();
     });
   }
@@ -61,6 +62,7 @@ function fetchList() {
     selectTodo.addEventListener('click', function() {
       const index = Number(this.dataset.index);
       todoList[index].complete = !todoList[index].complete;
+      setLocalStorage()
       fetchList()
     });
   }
