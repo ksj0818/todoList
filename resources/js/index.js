@@ -10,7 +10,9 @@ todoSave.addEventListener('click', function() {
     complete: false
   }
 
-  todoList.push(todoItems)
+  todoItems.text === '' || todoItems.text === null ?
+  alert('할 일을 입력해 주세요.') :
+  todoList.push(todoItems);
   
   todoInput.value = '';
   fetchList();
