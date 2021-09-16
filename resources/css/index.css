@@ -1,7 +1,12 @@
-.cursor-pointer {
+.deleteTodoBtn,
+.select-todo {
   cursor: pointer;
 }
 
-.first__opacity {
-  opacity: 0.3;
+.deleteTodoBtn:hover {
+  color: tomato;
+}
+
+.deleteTodoBtn > i {
+  opacity: 0.5;
 }
