@@ -1,12 +1,14 @@
-.deleteTodoBtn,
-.select-todo {
+.delete-todo__btn,
+.check-todo {
   cursor: pointer;
+  opacity: 0.5;
 }
 
-.deleteTodoBtn:hover {
+.delete-todo__btn:hover {
   color: tomato;
 }
 
-.deleteTodoBtn > i {
-  opacity: 0.5;
+.complete-check {
+  color: tomato;
+  opacity: 0.9;
 }
