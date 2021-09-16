@@ -60,3 +60,4 @@ function deleteTodo(index) {
   todoList.splice(index, 1);
   fetchList();
 } 
+
