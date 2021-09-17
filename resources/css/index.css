@@ -3,7 +3,6 @@
   cursor: pointer;
   opacity: 0.5;
 }
-
 .delete-todo__btn:hover {
   color: tomato;
 }
@@ -11,4 +10,8 @@
 .complete-check {
   color: tomato;
   opacity: 0.9;
+}
+
+.todo-text {
+  cursor: pointer;
 }
