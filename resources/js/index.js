@@ -4,7 +4,7 @@ const todoListItem = document.getElementById('todo-list__item');
 const todoText = document.getElementsByClassName('todo-text');
 const checkTodo = document.getElementsByClassName('check-todo');
 let todoList = [];
-
+fetchList();  
 
 if (localStorage.todo != undefined) {
   todoList = JSON.parse(localStorage.todo);
@@ -31,6 +31,7 @@ todoSave.addEventListener('click', function() {
 // functions 
 function fetchList() {
   let htmlBox = '';
+  let indexTemp;
   for (let index in todoList) { 
     const todoTemplate = `
       <div class="card mb-3">
@@ -48,6 +49,12 @@ function fetchList() {
       </div>
     `;
     htmlBox += todoTemplate;
+    indexTemp = index;
+    if (todoList[index].complete === true) {
+      todoText[index].className = "col-10 todo-text text-decoration-line-through";
+      checkTodo[index].className = 'fas fa-check check-todo complete-check';
+      setLocalStorage();
+    } 
   }
   todoListItem.innerHTML = htmlBox;
 }
