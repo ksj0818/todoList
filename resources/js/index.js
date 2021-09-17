@@ -31,7 +31,6 @@ function fetchList() {
   todoList = todoList.sort(function(a,b) {
     return a.complete - b.complete;
   });
-  console.log(todoList)
   let htmlBox = '';
   let indexTemp;
   for (let index in todoList) { 
