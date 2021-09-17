@@ -4,13 +4,6 @@ const todoListItem = document.getElementById('todo-list__item');
 const todoText = document.getElementsByClassName('todo-text');
 const checkTodo = document.getElementsByClassName('check-todo');
 let todoList = [];
-fetchList();  
-
-if (localStorage.todo != undefined) {
-  todoList = JSON.parse(localStorage.todo);
-  fetchList();  
-  
-}
 
 if (localStorage.todo !== undefined) {
   todoList = JSON.parse(localStorage.todo);
@@ -54,12 +47,6 @@ function fetchList() {
       </div>
     `;
     htmlBox += todoTemplate;
-    indexTemp = index;
-    if (todoList[index].complete === true) {
-      todoText[index].className = "col-10 todo-text text-decoration-line-through";
-      checkTodo[index].className = 'fas fa-check check-todo complete-check';
-      setLocalStorage();
-    } 
   }
   todoListItem.innerHTML = htmlBox;
 }
@@ -96,7 +83,7 @@ function setLocalStorage() {
 function updateTodoText(index) {
   let updateText = prompt('수정할 내용을 입력해 주세요.', todoList[index].text );
   todoList[index].text = updateText !== null ? updateText : todoList[index].text;
-  console.log(todoList[index].text)
+  
   setLocalStorage();
   fetchList();
 }
