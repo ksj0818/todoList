@@ -1,13 +1,15 @@
 const todoSave = document.getElementById('todo-save');
 const todoInput = document.getElementById('todo-input');
 const todoListItem = document.getElementById('todo-list__item');
-
+const todoText = document.getElementsByClassName('todo-text');
+const checkTodo = document.getElementsByClassName('check-todo');
 let todoList = [];
+
 
 if (localStorage.todo != undefined) {
   todoList = JSON.parse(localStorage.todo);
-  console.log(todoList)
-  fetchList();
+  fetchList();  
+  
 }
 
 todoSave.addEventListener('click', function() {
@@ -35,7 +37,7 @@ function fetchList() {
         <div class="card-body">
           <div class="row">
             <div class="col-1">
-              <i class="fas fa-check check-todo" onclick="checkTodo(${index})"></i>
+              <i class="fas fa-check check-todo" data-index=${index} onclick="checkTodo1(${index})"></i>
             </div>
             <div class="col-10 todo-text">${todoList[index].text}</div>
             <div class="col-1">
@@ -50,19 +52,18 @@ function fetchList() {
   todoListItem.innerHTML = htmlBox;
 }
 
-function checkTodo(index) {
-  let todoText = document.getElementsByClassName('todo-text');
-  let checkTodo = document.getElementsByClassName('check-todo');
-
+function checkTodo1(index) {
   todoList[index].complete = !todoList[index].complete;
   if (todoList[index].complete === true) {
     todoText[index].className = "col-10 todo-text text-decoration-line-through";
     checkTodo[index].className = 'fas fa-check check-todo complete-check';
+    setLocalStorage();
   } else {
     todoText[index].className = "col-10 todo-text";
     checkTodo[index].className = 'fas fa-check check-todo';
+    setLocalStorage();
   }
-  setLocalStorage()
+  
 }
 
 function deleteTodo(index) {
