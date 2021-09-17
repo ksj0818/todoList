@@ -28,6 +28,10 @@ todoSave.addEventListener('click', function() {
 
 // functions 
 function fetchList() {
+  todoList = todoList.sort(function(a,b) {
+    return a.complete - b.complete;
+  });
+  console.log(todoList)
   let htmlBox = '';
   for (let index in todoList) { 
     const todoTemplate = `
@@ -52,6 +56,7 @@ function fetchList() {
 
 function checkTodo1(index) {
   todoList[index].complete = !todoList[index].complete;
+  
   if (todoList[index].complete === true) {
     todoText[index].className = "col-10 todo-text text-decoration-line-through";
     checkTodo[index].className = 'fas fa-check check-todo complete-check';
@@ -60,6 +65,7 @@ function checkTodo1(index) {
     checkTodo[index].className = 'fas fa-check check-todo';
   }
   setLocalStorage();
+  fetchList()
 }
 
 function deleteTodo(index) {
