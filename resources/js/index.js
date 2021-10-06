@@ -3,6 +3,7 @@ const todoInput = document.getElementById('todo-input');
 const todoListItem = document.getElementById('todo-list__item');
 const todoText = document.getElementsByClassName('todo-text');
 const checkTodo = document.getElementsByClassName('check-todo');
+const checkFavorite1 = document.getElementsByClassName('check-favorite');
 let todoList = [];
 
 if (localStorage.todo !== undefined) {
@@ -13,7 +14,8 @@ if (localStorage.todo !== undefined) {
 todoSave.addEventListener('click', function() {
   let todoItems = {
     text: todoInput.value,
-    complete: false
+    complete: false,
+    favorite: false
   }
 
   todoItems.text === '' || todoItems.text === null ?
@@ -30,6 +32,8 @@ todoSave.addEventListener('click', function() {
 function fetchList() {
   todoList = todoList.sort(function(a,b) {
     return a.complete - b.complete;
+  }).sort(function(a,b) {
+    return b.favorite - a.favorite;
   });
   let htmlBox = '';
   let indexTemp;
@@ -39,9 +43,12 @@ function fetchList() {
         <div class="card-body">
           <div class="row">
             <div class="col-1">
-              <i class="fas fa-check ${todoList[index].complete === true ? 'check-todo complete-check' : 'check-todo'}" onclick="checkTodo1(${index})"></i>
+              <i class="fas fa-check ${todoList[index].complete ? 'check-todo complete-check' : 'check-todo'}" onclick="checkTodo1(${index})"></i>
             </div>
-            <div class="col-10 ${todoList[index].complete === true ? 'todo-text text-decoration-line-through' : 'todo-text'}" onclick="updateTodoText(${index})">${todoList[index].text}</div>
+            <div class="col-1">
+              <i class="far fa-star ${todoList[index].favorite ? 'check-favorite complete-favorite' : 'check-favorite'}" onclick="checkFavorite(${index})"></i>
+            </div>
+            <div class="col-9 ${todoList[index].complete ? 'todo-text text-decoration-line-through' : 'todo-text'}" onclick="updateTodoText(${index})">${todoList[index].text}</div>
             <div class="col-1">
               <i class="fas fa-trash delete-todo__btn" onclick="deleteTodo(${index})"></i>
             </div>
@@ -53,7 +60,7 @@ function fetchList() {
   }
   todoListItem.innerHTML = htmlBox;
 }
-
+// <i class=""></i>
 function checkTodo1(index) {
   todoList[index].complete = !todoList[index].complete;
   
@@ -70,7 +77,7 @@ function checkTodo1(index) {
 }
 
 function deleteTodo(index) {
-  confirm('정말 삭제할까요?') === true ? 
+  confirm('정말 삭제할까요?') ? 
   todoList.splice(index, 1)
   : null;
   setLocalStorage();
@@ -93,3 +100,14 @@ function updateTodoText(index) {
   fetchList();
 }
 
+
+function checkFavorite(index) {
+  todoList[index].favorite = !todoList[index].favorite;
+  
+  if (todoList[index].favorite) {
+    checkFavorite1[index].className = "check-favorite complete-favorite";
+  } else
+  checkFavorite1[index].className = "check-favorite";
+  setLocalStorage();
+  fetchList()
+}
