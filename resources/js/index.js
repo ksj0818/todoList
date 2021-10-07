@@ -36,7 +36,6 @@ function fetchList() {
     return b.favorite - a.favorite;
   });
   let htmlBox = '';
-  let indexTemp;
   for (let index in todoList) { 
     const todoTemplate = `
       <div class="card mb-3">
@@ -60,7 +59,7 @@ function fetchList() {
   }
   todoListItem.innerHTML = htmlBox;
 }
-// <i class=""></i>
+
 function checkTodo1(index) {
   todoList[index].complete = !todoList[index].complete;
   
@@ -86,7 +85,6 @@ function deleteTodo(index) {
 
 function setLocalStorage() {
   if (localStorage.todo !== undefined) {
-
     localStorage.removeItem('todo');
   }
   localStorage.setItem('todo', JSON.stringify(todoList));
@@ -95,7 +93,6 @@ function setLocalStorage() {
 function updateTodoText(index) {
   let updateText = prompt('수정할 내용을 입력해 주세요.', todoList[index].text );
   todoList[index].text = updateText !== null ? updateText : todoList[index].text;
-  
   setLocalStorage();
   fetchList();
 }
@@ -103,7 +100,6 @@ function updateTodoText(index) {
 
 function checkFavorite(index) {
   todoList[index].favorite = !todoList[index].favorite;
-  
   if (todoList[index].favorite) {
     checkFavorite1[index].className = "check-favorite complete-favorite";
   } else
